@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+    <head>
+        <title>Message sender</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    </head>
+    <body>
+    	<div class="container">
+    		<p>
+    			<h1>Message Sender</h1>
+    		</p>
+                <div th:unless="${message}">
+                <h5>Upload message to be sent</h5>
+                <form method="POST" th:action="@{/messagesender/upload}" enctype="multipart/form-data">
+                    <input type="file" name="file" /><br/><br/>
+                    <input type="submit" value="Submit" />
+                </form>
+                </div>
+                <div th:if="${message}">
+                    <h5 th:text="${message}"/>
+                </div>
+            <h5>Enter the details</h5>
+                <form action="#" th:action="@{/messagesender}" th:object="${settings}" method="post" style="width: 800px;">
+                        Broker:
+                        <input type="text" th:field="*{broker}" class="form-control" placeholder="broker" required autofocus/>
+
+                        Username:
+                        <input type="text" th:field="*{username}" class="form-control" placeholder="username" required autofocus/>
+
+                        Password:
+                        <input type="text" th:field="*{password}" class="form-control" placeholder="password" required autofocus/>
+
+                        Destination name:
+                        <input type="text" th:field="*{destinationName}" class="form-control" placeholder="destination name" required autofocus/>
+
+                        Mode:
+                        <input type="radio" name="mode" th:field="*{mode}" value="topic" class="form-control" required autofocus>Topic
+                        <input type="radio" name="mode" th:field="*{mode}" value="queue" class="form-control" required autofocus>Queue
+
+                        <br>
+                        <button class="btn btn-sm btn-primary form-control text-center" type="submit" style="max-width: 80px;">Send</button>
+                </form>
+        </div>
+    </body>
+</html>
